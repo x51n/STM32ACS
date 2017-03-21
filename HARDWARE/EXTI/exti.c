@@ -4,71 +4,59 @@
 #include "led.h"
 #include "usart.h"
 #include "wg.h"
-//////////////////////////////////////////////////////////////////////////////////
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-// ALIENTEK Mini STM32¿ª·¢°å
-//Íâ²¿ÖÐ¶Ï Çý¶¯´úÂë
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//ÐÞ¸ÄÈÕÆÚ:2014/3/06
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-// Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2009-2019
-// All rights reserved
-//////////////////////////////////////////////////////////////////////////////////
 
-//Íâ²¿ÖÐ¶Ï0·þÎñ³ÌÐò
+//å¤–éƒ¨ä¸­æ–­0æœåŠ¡ç¨‹åº
 void EXTI0_IRQHandler(void) {
-  delay_ms(10);   //Ïû¶¶
-  if (WK_UP == 1) // WK_UP°´¼ü
+  delay_ms(10);   //æ¶ˆæŠ–
+  if (WK_UP == 1) // WK_UPæŒ‰é”®
   {
     LED0 = !LED0;
     LED1 = !LED1;
   }
-  EXTI->PR = 1 << 0; //Çå³ýLINE0ÉÏµÄÖÐ¶Ï±êÖ¾Î»
+  EXTI->PR = 1 << 0; //æ¸…é™¤LINE0ä¸Šçš„ä¸­æ–­æ ‡å¿—ä½
 }
-//Íâ²¿ÖÐ¶Ï1·þÎñ³ÌÐò
+//å¤–éƒ¨ä¸­æ–­1æœåŠ¡ç¨‹åº
 void EXTI1_IRQHandler(void) {
-  delay_ms(10);  //Ïû¶¶
-  if (KEY0 == 0) //°´¼ü0
+  delay_ms(10);  //æ¶ˆæŠ–
+  if (KEY0 == 0) //æŒ‰é”®0
   {
     LED0 = !LED0;
   }
-  EXTI->PR = 1 << 1; //Çå³ýLINE1ÉÏµÄÖÐ¶Ï±êÖ¾Î»
+  EXTI->PR = 1 << 1; //æ¸…é™¤LINE1ä¸Šçš„ä¸­æ–­æ ‡å¿—ä½
 }
-//Íâ²¿ÖÐ¶Ï15~10·þÎñ³ÌÐò
+//å¤–éƒ¨ä¸­æ–­15~10æœåŠ¡ç¨‹åº
 void EXTI15_10_IRQHandler(void) {
-  delay_ms(10);  //Ïû¶¶
-  if (KEY1 == 0) //°´¼ü1
+  delay_ms(10);  //æ¶ˆæŠ–
+  if (KEY1 == 0) //æŒ‰é”®1
   {
     LED1 = !LED1;
   }
-  EXTI->PR = 1 << 13; //Çå³ýLINE13ÉÏµÄÖÐ¶Ï±êÖ¾Î»
+  EXTI->PR = 1 << 13; //æ¸…é™¤LINE13ä¸Šçš„ä¸­æ–­æ ‡å¿—ä½
 }
-//Íâ²¿ÖÐ¶Ï3·þÎñ³ÌÐò 
+//å¤–éƒ¨ä¸­æ–­3æœåŠ¡ç¨‹åº
 void EXTI3_IRQHandler(void) {
   WGR_D1();
-  EXTI->PR = 1 << 3; //Çå³ýLINE1ÉÏµÄÖÐ¶Ï±êÖ¾Î»
+  EXTI->PR = 1 << 3; //æ¸…é™¤LINE1ä¸Šçš„ä¸­æ–­æ ‡å¿—ä½
 }
 
 void EXTI2_IRQHandler(void) {
   WGR_D0();
-  EXTI->PR = 1 << 2; //Çå³ýLINE1ÉÏµÄÖÐ¶Ï±êÖ¾Î»
+  EXTI->PR = 1 << 2; //æ¸…é™¤LINE1ä¸Šçš„ä¸­æ–­æ ‡å¿—ä½
 }
-//Íâ²¿ÖÐ¶Ï³õÊ¼»¯³ÌÐò
-//³õÊ¼»¯PA0,PC5,PA15ÎªÖÐ¶ÏÊäÈë.
+//å¤–éƒ¨ä¸­æ–­åˆå§‹åŒ–ç¨‹åº
+//åˆå§‹åŒ–PA0,PC5,PA15ä¸ºä¸­æ–­è¾“å…¥.
 void EXTI_Init(void) {
   KEY_Init();
-  Ex_NVIC_Config(GPIO_A, 0, RTIR);  //ÉÏÉýÑØ´¥·¢
-  Ex_NVIC_Config(GPIO_C, 1, FTIR);  //ÏÂ½µÑØ´¥·¢
-  Ex_NVIC_Config(GPIO_C, 13, FTIR); //ÏÂ½µÑØ´¥·¢
+  Ex_NVIC_Config(GPIO_A, 0, RTIR);  //ä¸Šå‡æ²¿è§¦å‘
+  Ex_NVIC_Config(GPIO_C, 1, FTIR);  //ä¸‹é™æ²¿è§¦å‘
+  Ex_NVIC_Config(GPIO_C, 13, FTIR); //ä¸‹é™æ²¿è§¦å‘
 
-  Ex_NVIC_Config(GPIO_C, 2, FTIR); //ÏÂ½µÑØ´¥·¢	D0 //Î¤¸ùÖÐ¶Ï
-  Ex_NVIC_Config(GPIO_C, 3, FTIR); //ÏÂ½µÑØ´¥·¢	D1
+  Ex_NVIC_Config(GPIO_C, 2, FTIR); //ä¸‹é™æ²¿è§¦å‘	D0 //éŸ¦æ ¹ä¸­æ–­
+  Ex_NVIC_Config(GPIO_C, 3, FTIR); //ä¸‹é™æ²¿è§¦å‘	D1
 
-  MY_NVIC_Init(1, 1, EXTI0_IRQn, 3);     //ÇÀÕ¼2£¬×ÓÓÅÏÈ¼¶2£z×é3
-  MY_NVIC_Init(1, 1, EXTI1_IRQn, 3);     //ÇÀÕ¼2£¬×ÓÓÅÏÈ¼¶1£¬×é3
-  MY_NVIC_Init(1, 1, EXTI15_10_IRQn, 3); //ÇÀÕ¼2£¬×ÓÓÅÏÈ¼¶0£¬×é3
+  MY_NVIC_Init(1, 1, EXTI0_IRQn, 3);     //æŠ¢å 2ï¼Œå­ä¼˜å…ˆçº§2?zç»„3
+  MY_NVIC_Init(1, 1, EXTI1_IRQn, 3);     //æŠ¢å 2ï¼Œå­ä¼˜å…ˆçº§1ï¼Œç»„3
+  MY_NVIC_Init(1, 1, EXTI15_10_IRQn, 3); //æŠ¢å 2ï¼Œå­ä¼˜å…ˆçº§0ï¼Œç»„3
 
   MY_NVIC_Init(0, 1, EXTI3_IRQn, 3);
   MY_NVIC_Init(0, 1, EXTI2_IRQn, 3);

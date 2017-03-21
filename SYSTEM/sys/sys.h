@@ -1,132 +1,89 @@
 #ifndef __SYS_H
-#define __SYS_H	  
-#include <stm32f10x.h>   
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32¿ª·¢°å
-//ÏµÍ³Ê±ÖÓ³õÊ¼»¯£¨ÊÊºÏSTM32F10xÏµÁÐ£©		   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2010/1/1
-//°æ±¾£ºV1.9
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2009-2019
-//All rights reserved
-//********************************************************************************
-//V1.4ÐÞ¸ÄËµÃ÷
-//°ÑNVIC KOÁË,Ã»ÓÐÊ¹ÓÃÈÎºÎ¿âÎÄ¼þ!
-//¼ÓÈëÁËJTAG_Setº¯Êý
-//V1.5 20120322
-//Ôö¼Óvoid INTX_DISABLE(void)ºÍvoid INTX_ENABLE(void)Á½¸öº¯Êý
-//V1.6 20120412
-//1,Ôö¼ÓMSR_MSPº¯Êý												    
-//2,ÐÞ¸ÄVECT_TAB_RAMµÄÄ¬ÈÏÆ«ÒÆ,ÉèÖÃÎª0.
-//V1.7 20120818
-//1,Ìí¼ÓucosÖ§³ÖÅäÖÃºêSYSTEM_SUPPORT_UCOS
-//2,ÐÞ¸ÄÁË×¢ÊÍ
-//3,È¥µôÁË²»³£ÓÃº¯ÊýBKP_Write
-//V1.8 20131120
-//1,ÐÞ¸ÄÍ·ÎÄ¼þÎªstm32f10x.h,²»ÔÙÊ¹ÓÃstm32f10x_lib.h¼°ÆäÏà¹ØÍ·ÎÄ¼þ
-//V1.9 20150109
-//1,ÐÞ¸ÄÍ·ÎÄ¼þÎªMY_NVIC_Initº¯Êý²¿·Ö´úÂëÒÔÖ§³ÖÏòÁ¿ºÅ´óÓÚ63µÄÖÐ¶ÏµÄÉèÖÃ
-//2,ÐÞ¸ÄWFI_SET/INTX_DISABLE/INTX_ENABLEµÈº¯ÊýµÄÊµÏÖ·½Ê½
-//V2.0 20150322
-//ÐÞ¸ÄSYSTEM_SUPPORT_UCOSÎªSYSTEM_SUPPORT_OS
-////////////////////////////////////////////////////////////////////////////////// 	  
+#define __SYS_H
+#include <stm32f10x.h>
 
-//0,²»Ö§³ÖOS
-//1,Ö§³ÖOS
-#define SYSTEM_SUPPORT_OS		0		//¶¨ÒåÏµÍ³ÎÄ¼þ¼ÐÊÇ·ñÖ§³ÖOS
-																	    
-	 
-//Î»´ø²Ù×÷,ÊµÏÖ51ÀàËÆµÄGPIO¿ØÖÆ¹¦ÄÜ
-//¾ßÌåÊµÏÖË¼Ïë,²Î¿¼<<CM3È¨ÍþÖ¸ÄÏ>>µÚÎåÕÂ(87Ò³~92Ò³).
-//IO¿Ú²Ù×÷ºê¶¨Òå
-#define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
-#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
-#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
-//IO¿ÚµØÖ·Ó³Éä
-#define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C 
-#define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C 
-#define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C 
-#define GPIOD_ODR_Addr    (GPIOD_BASE+12) //0x4001140C 
-#define GPIOE_ODR_Addr    (GPIOE_BASE+12) //0x4001180C 
-#define GPIOF_ODR_Addr    (GPIOF_BASE+12) //0x40011A0C    
-#define GPIOG_ODR_Addr    (GPIOG_BASE+12) //0x40011E0C    
+//0,ä¸æ”¯æŒOS
+//1,æ”¯æŒOS
+#define SYSTEM_SUPPORT_OS		0		//å®šä¹‰ç³»ç»Ÿæ–‡ä»¶å¤¹æ˜¯å¦æ”¯æŒOS
 
-#define GPIOA_IDR_Addr    (GPIOA_BASE+8) //0x40010808 
-#define GPIOB_IDR_Addr    (GPIOB_BASE+8) //0x40010C08 
-#define GPIOC_IDR_Addr    (GPIOC_BASE+8) //0x40011008 
-#define GPIOD_IDR_Addr    (GPIOD_BASE+8) //0x40011408 
-#define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808 
-#define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08 
-#define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08 
- 
-//IO¿Ú²Ù×÷,Ö»¶Ôµ¥Ò»µÄIO¿Ú!
-//È·±£nµÄÖµÐ¡ÓÚ16!
-#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //Êä³ö 
-#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //ÊäÈë 
 
-#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //Êä³ö 
-#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //ÊäÈë 
+//ä½å¸¦æ“ä½œ,å®žçŽ°51ç±»ä¼¼çš„GPIOæŽ§åˆ¶åŠŸèƒ½
+//å…·ä½“å®žçŽ°æ€æƒ³,å‚è€ƒ<<CM3æƒå¨æŒ‡å—>>ç¬¬äº”ç« (87é¡µ~92é¡µ).
+//IOå£æ“ä½œå®å®šä¹‰
+#define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2))
+#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr))
+#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum))
+//IOå£åœ°å€æ˜ å°„
+#define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C
+#define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C
+#define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C
+#define GPIOD_ODR_Addr    (GPIOD_BASE+12) //0x4001140C
+#define GPIOE_ODR_Addr    (GPIOE_BASE+12) //0x4001180C
+#define GPIOF_ODR_Addr    (GPIOF_BASE+12) //0x40011A0C
+#define GPIOG_ODR_Addr    (GPIOG_BASE+12) //0x40011E0C
 
-#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //Êä³ö 
-#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //ÊäÈë 
+#define GPIOA_IDR_Addr    (GPIOA_BASE+8) //0x40010808
+#define GPIOB_IDR_Addr    (GPIOB_BASE+8) //0x40010C08
+#define GPIOC_IDR_Addr    (GPIOC_BASE+8) //0x40011008
+#define GPIOD_IDR_Addr    (GPIOD_BASE+8) //0x40011408
+#define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808
+#define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08
+#define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08
 
-#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //Êä³ö 
-#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //ÊäÈë 
+//IOå£æ“ä½œ,åªå¯¹å•ä¸€çš„IOå£!
+//ç¡®ä¿nçš„å€¼å°äºŽ16!
+#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //è¾“å‡º
+#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //è¾“å…¥
 
-#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //Êä³ö 
-#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //ÊäÈë
+#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //è¾“å‡º
+#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //è¾“å…¥
 
-#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //Êä³ö 
-#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //ÊäÈë
+#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //è¾“å‡º
+#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //è¾“å…¥
 
-#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //Êä³ö 
-#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //ÊäÈë
+#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //è¾“å‡º
+#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //è¾“å…¥
+
+#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //è¾“å‡º
+#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //è¾“å…¥
+
+#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //è¾“å‡º
+#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //è¾“å…¥
+
+#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //è¾“å‡º
+#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //è¾“å…¥
 /////////////////////////////////////////////////////////////////
-//Ex_NVIC_Config×¨ÓÃ¶¨Òå
+//Ex_NVIC_Configä¸“ç”¨å®šä¹‰
 #define GPIO_A 0
 #define GPIO_B 1
 #define GPIO_C 2
 #define GPIO_D 3
 #define GPIO_E 4
 #define GPIO_F 5
-#define GPIO_G 6 
-#define FTIR   1  //ÏÂ½µÑØ´¥·¢
-#define RTIR   2  //ÉÏÉýÑØ´¥·¢
-								   
+#define GPIO_G 6
+#define FTIR   1  //ä¸‹é™æ²¿è§¦å‘
+#define RTIR   2  //ä¸Šå‡æ²¿è§¦å‘
 
-//JTAGÄ£Ê½ÉèÖÃ¶¨Òå
+
+//JTAGæ¨¡å¼è®¾ç½®å®šä¹‰
 #define JTAG_SWD_DISABLE   0X02
 #define SWD_ENABLE         0X01
-#define JTAG_SWD_ENABLE    0X00	
+#define JTAG_SWD_ENABLE    0X00
 
-/////////////////////////////////////////////////////////////////  
-void Stm32_Clock_Init(u8 PLL);  //Ê±ÖÓ³õÊ¼»¯  
-void Sys_Soft_Reset(void);      //ÏµÍ³Èí¸´Î»
-void Sys_Standby(void);         //´ý»úÄ£Ê½ 	
-void MY_NVIC_SetVectorTable(u32 NVIC_VectTab, u32 Offset);//ÉèÖÃÆ«ÒÆµØÖ·
-void MY_NVIC_PriorityGroupConfig(u8 NVIC_Group);//ÉèÖÃNVIC·Ö×é
-void MY_NVIC_Init(u8 NVIC_PreemptionPriority,u8 NVIC_SubPriority,u8 NVIC_Channel,u8 NVIC_Group);//ÉèÖÃÖÐ¶Ï
-void Ex_NVIC_Config(u8 GPIOx,u8 BITx,u8 TRIM);//Íâ²¿ÖÐ¶ÏÅäÖÃº¯Êý(Ö»¶ÔGPIOA~G)
+/////////////////////////////////////////////////////////////////
+void Stm32_Clock_Init(u8 PLL);  //æ—¶é’Ÿåˆå§‹åŒ–
+void Sys_Soft_Reset(void);      //ç³»ç»Ÿè½¯å¤ä½
+void Sys_Standby(void);         //å¾…æœºæ¨¡å¼
+void MY_NVIC_SetVectorTable(u32 NVIC_VectTab, u32 Offset);//è®¾ç½®åç§»åœ°å€
+void MY_NVIC_PriorityGroupConfig(u8 NVIC_Group);//è®¾ç½®NVICåˆ†ç»„
+void MY_NVIC_Init(u8 NVIC_PreemptionPriority,u8 NVIC_SubPriority,u8 NVIC_Channel,u8 NVIC_Group);//è®¾ç½®ä¸­æ–­
+void Ex_NVIC_Config(u8 GPIOx,u8 BITx,u8 TRIM);//å¤–éƒ¨ä¸­æ–­é…ç½®å‡½æ•°(åªå¯¹GPIOA~G)
 void JTAG_Set(u8 mode);
 //////////////////////////////////////////////////////////////////////////////
-//ÒÔÏÂÎª»ã±àº¯Êý
-void WFI_SET(void);		//Ö´ÐÐWFIÖ¸Áî
-void INTX_DISABLE(void);//¹Ø±ÕËùÓÐÖÐ¶Ï
-void INTX_ENABLE(void);	//¿ªÆôËùÓÐÖÐ¶Ï
-void MSR_MSP(u32 addr);	//ÉèÖÃ¶ÑÕ»µØÖ·
+//ä»¥ä¸‹ä¸ºæ±‡ç¼–å‡½æ•°
+void WFI_SET(void);		//æ‰§è¡ŒWFIæŒ‡ä»¤
+void INTX_DISABLE(void);//å…³é—­æ‰€æœ‰ä¸­æ–­
+void INTX_ENABLE(void);	//å¼€å¯æ‰€æœ‰ä¸­æ–­
+void MSR_MSP(u32 addr);	//è®¾ç½®å †æ ˆåœ°å€
 
 #endif
-
-
-
-
-
-
-
-
-
-
-

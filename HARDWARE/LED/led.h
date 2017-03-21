@@ -3,11 +3,11 @@
 #include "sys.h"
    
 
-//LED¶Ë¿Ú¶¨Òå
+//LEDç«¯å£å®šä¹‰
 #define LED0 PAout(8)	// PA8
 #define LED1 PDout(2)	// PD2	
 
-void LED_Init(void);	//³õÊ¼»¯		 				    
+void LED_Init(void);	//åˆå§‹åŒ–		 				    
 #endif
 
 
