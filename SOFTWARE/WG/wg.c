@@ -3,16 +3,16 @@
 #include "led.h"
 #include "wg.h"
 
-u8 dat[26]; //Ë¢¿¨ĞÅÏ¢
+u8 dat[26]; //åˆ·å¡ä¿¡æ¯
 u8 count = 0;
-u8 firstbit;   //Ç°2-13Î»µÄÅ¼Ğ£ÑéÎ»
-u8 lastbit;    //µÚ14£­25Î»µÄÆæĞ£ÑéÎ»
-u8 r_done = 0; //Êı¾İ»ñÈ¡Íê³É±êÖ¾Î»
+u8 firstbit;   //å‰2-13ä½çš„å¶æ ¡éªŒä½
+u8 lastbit;    //ç¬¬14ï¼25ä½çš„å¥‡æ ¡éªŒä½
+u8 r_done = 0; //æ•°æ®è·å–å®Œæˆæ ‡å¿—ä½
 
-//¶Á D0 ÏßÉÏµÄÊı¾İ
-void WGR_D0(void) //ÂÌÉ« C2
+//è¯» D0 çº¿ä¸Šçš„æ•°æ®
+void WGR_D0(void) //ç»¿è‰² C2
 {
-  if (count == 0) //»ñÈ¡Å¼Ğ£ÑéÂë
+  if (count == 0) //è·å–å¶æ ¡éªŒç 
   {
     firstbit = 0;
     dat[count] = 0;
@@ -22,7 +22,7 @@ void WGR_D0(void) //ÂÌÉ« C2
   } else if (count == 25) {
     lastbit = 0;
     dat[count] = 0;
-  } //»ñÈ¡ÆæĞ£ÑéÂë
+  } //è·å–å¥‡æ ¡éªŒç 
   count++;
   if (count == 26) {
     count = 0;
@@ -31,8 +31,8 @@ void WGR_D0(void) //ÂÌÉ« C2
   }
 }
 
-//¶Á D1 ÏßÉÏµÄÊı¾İ
-void WGR_D1(void) //°×É« C3
+//è¯» D1 çº¿ä¸Šçš„æ•°æ®
+void WGR_D1(void) //ç™½è‰² C3
 {
   if (count == 0) {
     firstbit = 1;
@@ -51,7 +51,7 @@ void WGR_D1(void) //°×É« C3
   }
 }
 
-//¼ì²éĞ£ÑéÊı¾İ
+//æ£€æŸ¥æ ¡éªŒæ•°æ®
 
 u8 dat_check(void) {
   int f, l, n=0, m=0, p=0;
@@ -60,7 +60,7 @@ u8 dat_check(void) {
     if (dat[f] & 0x01)
       one_num++;
   }
-  n = (one_num + firstbit) % 2; // 0ÎªÍ¨¹ı
+  n = (one_num + firstbit) % 2; // 0ä¸ºé€šè¿‡
   one_num = 0;
   if (!n) {
     for (l = 13; l <= 24; l++) {
@@ -77,7 +77,7 @@ u8 dat_check(void) {
 
 
 void send_wg_dat(void) {
-  // if (r_done == 1) //Èç¹ûÊı¾İ»ñÈ¡Íê³É±êÖ¾Î»ÓĞĞ§£¬ËµÃ÷Êı¾İ»ñÈ¡Íê±Ï
+  // if (r_done == 1) //å¦‚æœæ•°æ®è·å–å®Œæˆæ ‡å¿—ä½æœ‰æ•ˆï¼Œè¯´æ˜æ•°æ®è·å–å®Œæ¯•
   // {
   int p;
   //  delay_ms(200);

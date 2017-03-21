@@ -1,0 +1,13 @@
+.\objects\exti.o: ..\HARDWARE\EXTI\exti.c
+.\objects\exti.o: ..\SYSTEM\delay\delay.h
+.\objects\exti.o: ..\SYSTEM\sys\sys.h
+.\objects\exti.o: ..\SYSTEM\sys\stm32f10x.h
+.\objects\exti.o: ..\SYSTEM\sys\core_cm3.h
+.\objects\exti.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\exti.o: ..\SYSTEM\sys\system_stm32f10x.h
+.\objects\exti.o: ..\HARDWARE\EXTI\exti.h
+.\objects\exti.o: ..\HARDWARE\KEY\key.h
+.\objects\exti.o: ..\HARDWARE\LED\led.h
+.\objects\exti.o: ..\SYSTEM\usart\usart.h
+.\objects\exti.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\exti.o: ..\SOFTWARE\WG\wg.h

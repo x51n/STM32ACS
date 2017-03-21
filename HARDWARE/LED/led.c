@@ -1,17 +1,17 @@
 #include "sys.h"
 #include "led.h"
 
-//³õÊ¼»¯PA8ºÍPD2ÎªÊä³ö¿Ú.²¢Ê¹ÄÜÕâÁ½¸ö¿ÚµÄÊ±ÖÓ
-//LED IO³õÊ¼»¯
+//åˆå§‹åŒ–PA8å’ŒPD2ä¸ºè¾“å‡ºå£.å¹¶ä½¿èƒ½è¿™ä¸¤ä¸ªå£çš„æ—¶é’Ÿ
+//LED IOåˆå§‹åŒ–
 void LED_Init(void)
 {
-	RCC->APB2ENR|=1<<2;    //Ê¹ÄÜPORTAÊ±ÖÓ
-	RCC->APB2ENR|=1<<5;    //Ê¹ÄÜPORTDÊ±ÖÓ
+	RCC->APB2ENR|=1<<2;    //ä½¿èƒ½PORTAæ—¶é’Ÿ
+	RCC->APB2ENR|=1<<5;    //ä½¿èƒ½PORTDæ—¶é’Ÿ
 	GPIOA->CRH&=0XFFFFFFF0;
-	GPIOA->CRH|=0X00000003;//PA8 ÍÆÍìÊä³ö
-    GPIOA->ODR|=1<<8;      //PA8 Êä³ö¸ß
+	GPIOA->CRH|=0X00000003;//PA8 æŽ¨æŒ½è¾“å‡º
+    GPIOA->ODR|=1<<8;      //PA8 è¾“å‡ºé«˜
 
 	GPIOD->CRL&=0XFFFFF0FF;
-	GPIOD->CRL|=0X00000300;//PD.2ÍÆÍìÊä³ö
-	GPIOD->ODR|=1<<2;      //PD.2Êä³ö¸ß
+	GPIOD->CRL|=0X00000300;//PD.2æŽ¨æŒ½è¾“å‡º
+	GPIOD->ODR|=1<<2;      //PD.2è¾“å‡ºé«˜
 }

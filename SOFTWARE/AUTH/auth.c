@@ -32,9 +32,9 @@ void auth(void) {
     }
     if (auth_faultflag == 0) {
       auth_pass(); 
-			 break;//验证成功
+			 break;//楠岃瘉鎴愬姛
     } else if (j == -1 || auth_faultflag == 1)
-      auth_fault(); //验证失败
+      auth_fault(); //楠岃瘉澶辫触
 			break;
   }
 }

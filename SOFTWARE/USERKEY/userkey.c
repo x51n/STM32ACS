@@ -1,11 +1,11 @@
 #include "userkey.h"
 
-//定义一个二维数组，将二维数组在auth中传递给一维数组，并且循环对比
+//瀹氫箟涓�涓簩缁存暟缁勶紝灏嗕簩缁存暟缁勫湪auth涓紶閫掔粰涓�缁存暟缁勶紝骞朵笖寰幆瀵规瘮
 //extern u8 datatemp;
 
-u8 usersum = 1; //用户总数
+u8 usersum = 1; //鐢ㄦ埛鎬绘暟
 //int valid_dat[1][26];
-// int userkey; //合法用户身份信息
+// int userkey; //鍚堟硶鐢ㄦ埛韬唤淇℃伅
 //int valid_dat[2][26]={{1}};	
 //u8 valid_dat[1][26];
 /*={

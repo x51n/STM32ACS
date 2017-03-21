@@ -1,0 +1,9 @@
+.\objects\flash.o: ..\HARDWARE\FLASH\flash.c
+.\objects\flash.o: ..\HARDWARE\FLASH\flash.h
+.\objects\flash.o: ..\SYSTEM\sys\sys.h
+.\objects\flash.o: ..\SYSTEM\sys\stm32f10x.h
+.\objects\flash.o: ..\SYSTEM\sys\core_cm3.h
+.\objects\flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\flash.o: ..\SYSTEM\sys\system_stm32f10x.h
+.\objects\flash.o: ..\HARDWARE\SPI\spi.h
+.\objects\flash.o: ..\SYSTEM\delay\delay.h

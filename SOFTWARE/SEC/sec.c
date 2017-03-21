@@ -8,8 +8,8 @@
 
 int fault_count = 0;
 int lock_counter=0;
-int delay_start_flag = 0; //¼ÆÊ±¿ªÊ¼±êÖ¾
-int valid_time_flag = 0; //ÓĞĞ§Ê±¼ä±êÖ¾,0´ú±íÓĞĞ§
+int delay_start_flag = 0; //è®¡æ—¶å¼€å§‹æ ‡å¿—
+int valid_time_flag = 0; //æœ‰æ•ˆæ—¶é—´æ ‡å¿—,0ä»£è¡¨æœ‰æ•ˆ
 void init_delay(void);
 void start_valid_time_counter(void);
 void setlock(void);
@@ -17,15 +17,15 @@ void lock_exit(void);
 void unlock_exit(void);
 void start_lock_delay(void);
 
-void sec(void) { //±íÊ¾Ë¢¿¨ÑéÖ¤Ê§°ÜÒ»´Î
+void sec(void) { //è¡¨ç¤ºåˆ·å¡éªŒè¯å¤±è´¥ä¸€æ¬¡
   // fault_count++;
   // if (delay_start_flag == 0) {
   //   start_valid_time_counter();
   // } else if (delay_start_flag == 1) {
-  //   if (valid_time_up();) {           //Èç¹ûÔÚÓĞĞ§Ê±¼äÄÚ
-  //     if (fault_count > 5) {          //Èç¹ûÊäÈë´íÎó³¬¹ı5´Î
-  //       setlock();                    //ÉèÖÃËø¶¨
-  //     } else if (unlock_time_up();) { //Èç¹û½â³ıËø¶¨Ê±¼äµ½
+  //   if (valid_time_up();) {           //å¦‚æœåœ¨æœ‰æ•ˆæ—¶é—´å†…
+  //     if (fault_count > 5) {          //å¦‚æœè¾“å…¥é”™è¯¯è¶…è¿‡5æ¬¡
+  //       setlock();                    //è®¾ç½®é”å®š
+  //     } else if (unlock_time_up();) { //å¦‚æœè§£é™¤é”å®šæ—¶é—´åˆ°
   //       unlock();
   //       init_delay;
   //     }
@@ -35,7 +35,7 @@ void sec(void) { //±íÊ¾Ë¢¿¨ÑéÖ¤Ê§°ÜÒ»´Î
   if (fault_count == 1) {
     start_valid_time_counter();
   }
-  if (fault_count == 5) { //Èç¹û´íÎó´ÎÊıĞ¡ÓÚ5£¬ÓĞĞ§Ê±¼ä´óÓÚ
+  if (fault_count == 5) { //å¦‚æœé”™è¯¯æ¬¡æ•°å°äº5ï¼Œæœ‰æ•ˆæ—¶é—´å¤§äº
     if (valid_time_flag == 0) {
       setlock();
     } else if (valid_time_flag == 1) {
@@ -45,25 +45,25 @@ void sec(void) { //±íÊ¾Ë¢¿¨ÑéÖ¤Ê§°ÜÒ»´Î
   }
 }
 
-void start_valid_time_counter(void) //¿ªÊ¼Æô¶¯¼ÇÊ±
+void start_valid_time_counter(void) //å¼€å§‹å¯åŠ¨è®°æ—¶
 {
   init_delay();
   delay_start_flag = 1;
 }
 
-void init_delay(void) //³õÊ¼»¯¼ÆÊ±,Ïàµ±ÓëÖØÖÃ¼ÆÊ±
+void init_delay(void) //åˆå§‹åŒ–è®¡æ—¶,ç›¸å½“ä¸é‡ç½®è®¡æ—¶
 {
   delay_start_flag = 0;
-  fault_count = 0; //ÖØÖÃ´íÎó¼ÆÊıÆ÷
+  fault_count = 0; //é‡ç½®é”™è¯¯è®¡æ•°å™¨
   valid_time_flag = 0;
 }
 
-// void atom_delay(void) //Ò»¸ö¼ÆÊ±µ¥Î» 30Ãë
+// void atom_delay(void) //ä¸€ä¸ªè®¡æ—¶å•ä½ 30ç§’
 // {
-//   get_atom_time(); //Éè¼ÆÒ»¸öÉú³É30Ãë¼ÆÊ±µÄ²¿·Ö
+//   get_atom_time(); //è®¾è®¡ä¸€ä¸ªç”Ÿæˆ30ç§’è®¡æ—¶çš„éƒ¨åˆ†
 //}
 
-void valid_time_up(void) //·µ»ØÅĞ¶Ïµ±Ç°ÊÇ·ñÎªÓĞĞ§Ê±¼ä
+void valid_time_up(void) //è¿”å›åˆ¤æ–­å½“å‰æ˜¯å¦ä¸ºæœ‰æ•ˆæ—¶é—´
 {
   if (delay_start_flag == 1) {
     int t;
@@ -76,16 +76,16 @@ void valid_time_up(void) //·µ»ØÅĞ¶Ïµ±Ç°ÊÇ·ñÎªÓĞĞ§Ê±¼ä
   }
 }
 
-// void unlock_time_up(void) //·µ»Øµ±Ç°ÊÇ·ñÔÚËø¶¨Ê±¼äÄÚ
+// void unlock_time_up(void) //è¿”å›å½“å‰æ˜¯å¦åœ¨é”å®šæ—¶é—´å†…
 // {
 //
 // }
 
-void setlock(void) {  //¸Ãº¯ÊıÎªÖ´ĞĞÑÓÊ±¶àÉÙ£¬Ëø¶¨Ê±µ¥Æ¬»ú
-  lock_exit();        //¹Ø±ÕÖĞ¶Ï
-  start_lock_delay(); //Ö»Ö´ĞĞ¸ÃÑÓÊ±³ÌĞò
-  unlock_exit();      //´ò¿ªÖĞ¶Ï
-  init_delay();       //Ö´ĞĞÍêºó³õÊ¼»¯¼ÆÊ±³ÌĞò
+void setlock(void) {  //è¯¥å‡½æ•°ä¸ºæ‰§è¡Œå»¶æ—¶å¤šå°‘ï¼Œé”å®šæ—¶å•ç‰‡æœº
+  lock_exit();        //å…³é—­ä¸­æ–­
+  start_lock_delay(); //åªæ‰§è¡Œè¯¥å»¶æ—¶ç¨‹åº
+  unlock_exit();      //æ‰“å¼€ä¸­æ–­
+  init_delay();       //æ‰§è¡Œå®Œååˆå§‹åŒ–è®¡æ—¶ç¨‹åº
 }
 
 void lock_exit(void)
