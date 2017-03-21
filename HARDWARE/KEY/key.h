@@ -2,14 +2,14 @@
 #define __KEY_H
 #include "sys.h"
 
-#define KEY0_PRES	1		//KEY0°´ÏÂ
-#define KEY1_PRES	2		//KEY1°´ÏÂ
-#define WKUP_PRES	3		//WK_UP°´ÏÂ
+#define KEY0_PRES	1		//KEY0æŒ‰ä¸‹
+#define KEY1_PRES	2		//KEY1æŒ‰ä¸‹
+#define WKUP_PRES	3		//WK_UPæŒ‰ä¸‹
 
 #define KEY0  PCin(1)   	//PC1
 #define KEY1  PCin(13)	 	//PC13
 #define WK_UP PAin(0)	 	//PA0  WK_UP
 
-void KEY_Init(void);		//IO³õÊ¼»¯
-u8 KEY_Scan(u8 mode);		//°´¼üÉ¨Ãèº¯Êı
+void KEY_Init(void);		//IOåˆå§‹åŒ–
+u8 KEY_Scan(u8 mode);		//æŒ‰é”®æ‰«æå‡½æ•°
 #endif

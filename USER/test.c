@@ -8,18 +8,18 @@
 #include "auth.h"
 #include "wg.h"
 
-extern int r_done;	//¶ÁÈ¡³É¹¦±êÖ¾
+extern int r_done;	//è¯»å–æˆåŠŸæ ‡å¿—
 u8 datatemp[26];
 
 int main(void)
 {
 	
 	u32 FLASH_SIZE;
-	Stm32_Clock_Init(9);//ÏµÍ³Ê±ÖÓÉèÖÃ
-	delay_init(72);	    //ÑÓÊ±³õÊ¼»¯
-	uart_init(72,9600); //´®¿Ú³õÊ¼»¯
-	LED_Init();		  	//³õÊ¼»¯ÓëLEDÁ¬½ÓµÄÓ²¼ş½Ó¿Ú
-	EXTI_Init();		//Íâ²¿ÖĞ¶Ï³õÊ¼»¯
+	Stm32_Clock_Init(9);//ç³»ç»Ÿæ—¶é’Ÿè®¾ç½®
+	delay_init(72);	    //å»¶æ—¶åˆå§‹åŒ–
+	uart_init(72,9600); //ä¸²å£åˆå§‹åŒ–
+	LED_Init();		  	//åˆå§‹åŒ–ä¸LEDè¿æ¥çš„ç¡¬ä»¶æ¥å£
+	EXTI_Init();		//å¤–éƒ¨ä¸­æ–­åˆå§‹åŒ–
 	SPI_Flash_Init();
 	FLASH_SIZE = 2 * 1024 * 1024;
 

@@ -2,7 +2,7 @@
 #define __SPI_H
 #include "sys.h"
 
-// SPI×ÜÏßËÙ¶ÈÉèÖÃ
+// SPIæ€»çº¿é€Ÿåº¦è®¾ç½®
 #define SPI_SPEED_2   		0
 #define SPI_SPEED_4   		1
 #define SPI_SPEED_8   		2
@@ -12,8 +12,8 @@
 #define SPI_SPEED_128 		6
 #define SPI_SPEED_256 		7
 
-void SPI1_Init(void);			 //³õÊ¼»¯SPI¿Ú
-void SPI1_SetSpeed(u8 SpeedSet); //ÉèÖÃSPIËÙ¶È
-u8 SPI1_ReadWriteByte(u8 TxData);//SPI×ÜÏß¶ÁĞ´Ò»¸ö×Ö½Ú
+void SPI1_Init(void);			 //åˆå§‹åŒ–SPIå£
+void SPI1_SetSpeed(u8 SpeedSet); //è®¾ç½®SPIé€Ÿåº¦
+u8 SPI1_ReadWriteByte(u8 TxData);//SPIæ€»çº¿è¯»å†™ä¸€ä¸ªå­—èŠ‚
 
 #endif

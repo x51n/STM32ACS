@@ -1,38 +1,38 @@
 #include "delay.h"
 #include "key.h"
 
-//°´¼ü³õÊ¼»¯º¯Êı
-// PA0.15ºÍPC5 ÉèÖÃ³ÉÊäÈë
+//æŒ‰é”®åˆå§‹åŒ–å‡½æ•°
+// PA0.15å’ŒPC5 è®¾ç½®æˆè¾“å…¥
 void KEY_Init(void) {
-  RCC->APB2ENR |= 1 << 2; //Ê¹ÄÜPORTAÊ±ÖÓ
-  RCC->APB2ENR |= 1 << 4; //Ê¹ÄÜPORTCÊ±ÖÓ
-  // JTAG_Set(SWD_ENABLE);	//¹Ø±ÕJTAG,¿ªÆôSWD	//ËÆºõÃ»ÓĞÖØ¸´
-  GPIOA->CRL &= 0XFFFFFFF0; // PA0ÉèÖÃ³ÉÊäÈë
+  RCC->APB2ENR |= 1 << 2; //ä½¿èƒ½PORTAæ—¶é’Ÿ
+  RCC->APB2ENR |= 1 << 4; //ä½¿èƒ½PORTCæ—¶é’Ÿ
+  // JTAG_Set(SWD_ENABLE);	//å…³é—­JTAG,å¼€å¯SWD	//ä¼¼ä¹æ²¡æœ‰é‡å¤
+  GPIOA->CRL &= 0XFFFFFFF0; // PA0è®¾ç½®æˆè¾“å…¥
   GPIOA->CRL |= 0X00000008;
-  GPIOC->CRL &= 0XFFFF000F; // PC1£¬2£¬3ÉèÖÃ³ÉÊäÈë
+  GPIOC->CRL &= 0XFFFF000F; // PC1ï¼Œ2ï¼Œ3è®¾ç½®æˆè¾“å…¥
   GPIOC->CRL |= 0X00008880;
-  GPIOC->ODR |= 1 << 1;     // PC1ÉÏÀ­,PA0Ä¬ÈÏÏÂÀ­
+  GPIOC->ODR |= 1 << 1;     // PC1ä¸Šæ‹‰,PA0é»˜è®¤ä¸‹æ‹‰
 	GPIOC->ODR |= 1 << 2;
 	GPIOC->ODR |= 1 << 3;
-  GPIOC->CRH &= 0XFF0FFFFF; // PC13ÉèÖÃ³ÉÊäÈë
+  GPIOC->CRH &= 0XFF0FFFFF; // PC13è®¾ç½®æˆè¾“å…¥
   GPIOC->CRH |= 0X00800000;
-  GPIOC->ODR |= 1 << 13; // PC13ÉÏÀ­
+  GPIOC->ODR |= 1 << 13; // PC13ä¸Šæ‹‰
 }
-//°´¼ü´¦Àíº¯Êı
-//·µ»Ø°´¼üÖµ
-// mode:0,²»Ö§³ÖÁ¬Ğø°´;1,Ö§³ÖÁ¬Ğø°´;
-//·µ»ØÖµ£º
-// 0£¬Ã»ÓĞÈÎºÎ°´¼ü°´ÏÂ
-// KEY0_PRES£¬KEY0°´ÏÂ
-// KEY1_PRES£¬KEY1°´ÏÂ
-// WKUP_PRES£¬WK_UP°´ÏÂ
-//×¢Òâ´Ëº¯ÊıÓĞÏìÓ¦ÓÅÏÈ¼¶,KEY0>KEY1>WK_UP!!
+//æŒ‰é”®å¤„ç†å‡½æ•°
+//è¿”å›æŒ‰é”®å€¼
+// mode:0,ä¸æ”¯æŒè¿ç»­æŒ‰;1,æ”¯æŒè¿ç»­æŒ‰;
+//è¿”å›å€¼ï¼š
+// 0ï¼Œæ²¡æœ‰ä»»ä½•æŒ‰é”®æŒ‰ä¸‹
+// KEY0_PRESï¼ŒKEY0æŒ‰ä¸‹
+// KEY1_PRESï¼ŒKEY1æŒ‰ä¸‹
+// WKUP_PRESï¼ŒWK_UPæŒ‰ä¸‹
+//æ³¨æ„æ­¤å‡½æ•°æœ‰å“åº”ä¼˜å…ˆçº§,KEY0>KEY1>WK_UP!!
 u8 KEY_Scan(u8 mode) {
-  static u8 key_up = 1; //°´¼ü°´ËÉ¿ª±êÖ¾
+  static u8 key_up = 1; //æŒ‰é”®æŒ‰æ¾å¼€æ ‡å¿—
   if (mode)
-    key_up = 1; //Ö§³ÖÁ¬°´
+    key_up = 1; //æ”¯æŒè¿æŒ‰
   if (key_up && (KEY0 == 0 || KEY1 == 0 || WK_UP == 1)) {
-    delay_ms(10); //È¥¶¶¶¯
+    delay_ms(10); //å»æŠ–åŠ¨
     key_up = 0;
     if (KEY0 == 0)
       return KEY0_PRES;
@@ -42,5 +42,5 @@ u8 KEY_Scan(u8 mode) {
       return WKUP_PRES;
   } else if (KEY0 == 1 && KEY1 == 1 && WK_UP == 0)
     key_up = 1;
-  return 0; // ÎŞ°´¼ü°´ÏÂ
+  return 0; // æ— æŒ‰é”®æŒ‰ä¸‹
 }

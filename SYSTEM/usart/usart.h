@@ -2,30 +2,30 @@
 #define __USART_H
 #include "sys.h"
 #include "stdio.h"
-//V1.3�޸�˵�� 
-//֧����Ӧ��ͬƵ���µĴ��ڲ���������.
-//�����˶�printf��֧��
-//�����˴��ڽ��������.
-//������printf��һ���ַ���ʧ��bug
-//V1.4�޸�˵��
-//1,�޸Ĵ��ڳ�ʼ��IO��bug
-//2,�޸���USART_RX_STA,ʹ�ô����������ֽ���Ϊ2��14�η�
-//3,������USART_REC_LEN,���ڶ��崮������������յ��ֽ���(������2��14�η�)
-//4,�޸���EN_USART1_RX��ʹ�ܷ�ʽ
-//V1.5�޸�˵��
-//1,�����˶�UCOSII��֧��
-//V1.6�޸�˵�� 20150109
-//uart_init����ȥ���˿���PE�ж�
-//V1.7�޸�˵�� 20150322
-//�޸�OS_CRITICAL_METHOD���ж�Ϊ��SYSTEM_SUPPORT_OS
+//V1.3修改说明 
+//支持适应不同频率下的串口波特率设置.
+//加入了对printf的支持
+//增加了串口接收命令功能.
+//修正了printf第一个字符丢失的bug
+//V1.4修改说明
+//1,修改串口初始化IO的bug
+//2,修改了USART_RX_STA,使得串口最大接收字节数为2的14次方
+//3,增加了USART_REC_LEN,用于定义串口最大允许接收的字节数(不大于2的14次方)
+//4,修改了EN_USART1_RX的使能方式
+//V1.5修改说明
+//1,增加了对UCOSII的支持
+//V1.6修改说明 20150109
+//uart_init函数去掉了开启PE中断
+//V1.7修改说明 20150322
+//修改OS_CRITICAL_METHOD宏判断为：SYSTEM_SUPPORT_OS
 //////////////////////////////////////////////////////////////////////////////////
 
-#define USART_REC_LEN  			200  	//�����������ֽ��� 200
-#define EN_USART1_RX 			1		//ʹ�ܣ�1��/��ֹ��0������1����
+#define USART_REC_LEN  			200  	//定义最大接收字节数 200
+#define EN_USART1_RX 			1		//使能（1）/禁止（0）串口1接收
 
-extern u8  USART_RX_BUF[USART_REC_LEN]; //���ջ���,���USART_REC_LEN���ֽ�.ĩ�ֽ�Ϊ���з�
-extern u16 USART_RX_STA;         		//����״̬���
-//����봮���жϽ��գ��벻Ҫע�����º궨��
+extern u8  USART_RX_BUF[USART_REC_LEN]; //接收缓冲,最大USART_REC_LEN个字节.末字节为换行符
+extern u16 USART_RX_STA;         		//接收状态标记
+//如果想串口中断接收，请不要注释以下宏定义
 void uart_init(u32 pclk2,u32 bound);
 
 #endif
