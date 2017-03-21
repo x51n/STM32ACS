@@ -1,2 +1,8 @@
-*.o
-*.htm
+# keil:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+Objects
+Listings
+USER/STM32ACS\.uvguix\.xsin

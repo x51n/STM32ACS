@@ -1,9 +1,0 @@
-.\objects\dor.o: ..\HARDWARE\DOR\dor.c
-.\objects\dor.o: ..\HARDWARE\DOR\dor.h
-.\objects\dor.o: ..\SYSTEM\sys\sys.h
-.\objects\dor.o: ..\SYSTEM\sys\stm32f10x.h
-.\objects\dor.o: ..\SYSTEM\sys\core_cm3.h
-.\objects\dor.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-.\objects\dor.o: ..\SYSTEM\sys\system_stm32f10x.h
-.\objects\dor.o: ..\HARDWARE\LED\led.h
-.\objects\dor.o: ..\SYSTEM\delay\delay.h
